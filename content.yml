@@ -1,0 +1,100 @@
+spring:
+  application:
+    name: content
+  data:
+    mongodb:
+      host: 172.16.17.132
+      port: 27017
+      database: CONTENT
+server:
+  port: ${instance_port}
+  connection-timeout: 3600000
+#  servlet:
+#    context-path: /content
+#  tomcat:
+#      use-relative-redirects: true
+management:
+  security:
+    enabled: false
+
+#eureka
+eureka:
+  instance:
+    prefer-ip-address: true
+    statusPageUrlPath: /info
+    healthCheckUrlPath: http://${instance_ip}:${server.port}/${eureka.instance.metadata-map.management.context-path}/health
+    metadata-map:
+      management:
+        context-path: /actuator
+
+#actuator
+endpoints:
+  auditevents:
+    enabled: true
+  autoconfig:
+    enabled: true
+  conditions:
+    enabled: true
+  configprops:
+    enabled: true
+  env:
+    enabled: true
+  flyway:
+    enabled: true
+  health:
+    enabled: true
+  httptrace:
+    enabled: true
+  loggers:
+    enabled: true
+  liquibase:
+    enabled: true
+  metrics:
+    enabled: true
+    web:
+      enabled: true
+    sensitive: false
+  mappings:
+    enabled: true
+  scheduledtasks:
+    enabled: true
+  sessions:
+    enabled: true
+  shutdown:
+    enabled: true
+  threaddump:
+    enabled: true
+  info:
+    enabled: true
+  beans:
+    enabled: true
+  hystrix:
+    enabled: true
+  feign:
+    enabled: true
+  default:
+    web:
+      enabled: true
+
+---
+spring:
+  profiles: dev
+  application:
+    name: content-dev
+  data:
+    mongodb:
+      host: 172.16.17.132
+      port: 27017
+      database: CONTENT
+---
+spring:
+  profiles: prod
+  application:
+    name: content
+  data:
+    mongodb:
+      host: 172.16.0.32
+      port: 27017
+      database: CONTENT
+      username: b.minazhatov
+      password: Astana2030
